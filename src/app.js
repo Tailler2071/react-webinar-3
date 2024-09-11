@@ -1,4 +1,5 @@
 import React from 'react';
+import {declensionWords} from "./helpers";
 import './styles.css';
 
 /**
@@ -28,7 +29,9 @@ function App({ store }) {
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-content">
                   <span>{item.title}</span>
-                  {(item.selectionCount > 0) && <span> | Выделяли {item.selectionCount} раз</span>}
+                  {(item.selectionCount > 0) && (
+                    <span> | Выделяли {declensionWords(item.selectionCount, ["раз", "раза", "раз"])}</span>
+                  )}
                 </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
