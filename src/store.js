@@ -50,7 +50,7 @@ class Store {
 
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись', selectionCount: 0 }],
     });
   }
 
@@ -72,10 +72,22 @@ class Store {
   selectItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => ({
-        ...item,
-        selected: item.code === code ? !item.selected : false,
-      })),
+      list: this.state.list.map(item => {
+        if (item.code === code) {
+          const isCurrentlySelected = item.selected;
+
+          return {
+            ...item,
+            selected: !isCurrentlySelected,
+            selectionCount: isCurrentlySelected ? item.selectionCount : item.selectionCount + 1
+          };
+        }
+
+        return {
+          ...item,
+          selected: false
+        };
+      })
     });
   }
 
