@@ -3,8 +3,12 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      list: initState.list || []
+    };
     this.listeners = []; // Слушатели изменений состояния
+    this.lastCode = this.getNewCode();
   }
 
   /**
@@ -42,9 +46,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const newCode = ++this.lastCode;
+
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: newCode, title: 'Новая запись' }],
     });
   }
 
@@ -71,6 +77,10 @@ class Store {
         selected: item.code === code ? !item.selected : false,
       })),
     });
+  }
+
+  getNewCode() {
+    return this.state.list.reduce((max, item) => Math.max(max, item.code), 0);
   }
 }
 
