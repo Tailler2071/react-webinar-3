@@ -1,0 +1,23 @@
+.Cart-body {
+  margin: 71px 0 20px;
+  flex: 1;
+}
+
+.Cart-emptiness {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.Cart-footer {
+  margin-right: 120px;
+  margin-bottom: 89px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 53px;
+  font-size: 18px;
+  font-weight: 700;
+}

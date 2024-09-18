@@ -1,0 +1,14 @@
+.CartControls{
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.CartControls-text {
+  margin-right: 12px;
+}
+
+.CartControls-info {
+  margin-right: 20px;
+  font-weight: 700;
+}

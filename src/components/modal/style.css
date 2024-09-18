@@ -1,0 +1,38 @@
+.Modal {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000000B2;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.Modal-view {
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  min-height: 407px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F5F5F5;
+  padding: 20px 32px 23px 20px;
+}
+
+.Modal-header-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}

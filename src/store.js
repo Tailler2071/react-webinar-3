@@ -1,5 +1,3 @@
-import { generateCode } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -40,48 +38,41 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
+  addToCart(code) {
+    const item = this.state.list.find(item => item.code === code);
+
+    if (!item) return;
+
+    const cartItem = this.state.cart.find(cartItem => cartItem.code === code);
+
+    if (cartItem) {
+      this.setState({
+        ...this.state,
+        cart: this.state.cart.map(cartItem =>
+          cartItem.code === code ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem,
+        ),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        cart: [...this.state.cart, { ...item, quantity: 1 }],
+      });
+    }
+  }
+
+  removeFromCart(code) {
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: generateCode(), title: 'Новая запись' }],
+      cart: this.state.cart.filter(cartItem => cartItem.code !== code),
     });
   }
 
-  /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  getTotalItems() {
+    return this.state.cart.reduce((total, item) => total + item.quantity, 0);
   }
 
-  /**
-   * Выделение записи по коду
-   * @param code
-   */
-  selectItem(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? { ...item, selected: false } : item;
-      }),
-    });
+  getTotalPrice() {
+    return this.state.cart.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 }
 
